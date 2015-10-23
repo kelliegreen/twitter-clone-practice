@@ -14,11 +14,16 @@ $(document).ready(function () {
 	
 	$('body').on('keypress', '.tweet-compose', function () {
 
-		if (this.value.length > 140) {
+		if (this.value.length > 139) {
 			return false;
 		}
-		$("#char-count").html("Remaining characters : " + (140 - this.value.length));
+		$("#char-count").html("Remaining characters : " + (139 - this.value.length));
 	});
 
-
+	$('body').on('keypress', '.tweet-compose', function() {
+		if (this.value.length <= 128) {
+			return true;
+		}
+		$('#char-count').css('color', 'red');
+	});
 });
