@@ -1,29 +1,60 @@
 $(document).ready(function () {
-	$('body').on('keypress', '.tweet-compose', function () {
+
+	$('#tweet-controls').hide();
+
+	$('.tweet-compose').on('click', function () {
 		$(this).css('height', '5em');
-		$('#tweet-controls').css('visibility', 'visible');
-
-
+		$('#tweet-controls').show();
 	});
 
-	$('body').on('click', '#tweet-submit', function () {
-		$('.tweet-compose').css('height', '2.5em');
-		$('#tweet-controls').css('visibility', 'hidden');
-	});
-	
-	
-	$('body').on('keypress', '.tweet-compose', function () {
+	// $('#tweet-submit').on('click', function () {
+	// 	// $('.tweet-compose').css('height', '2.5em');
+	// 	// // $('#tweet-controls').css('visibility', 'hidden');
+	// 	var message = $('.tweet-compose').val();
+	// 	$('#stream').prepend(message);
+	// 	// $('.tweet').clone('#profile-summary').prepend('#stream');
+	// });
 
-		if (this.value.length > 139) {
-			return false;
-		}
-		$("#char-count").html("Remaining characters : " + (139 - this.value.length));
+
+	// $('.tweet-compose').on('keypress', function () {
+	// 	var messageText = $(this).val().length;
+	// 	var remainCount = $('#char-count') - messageText;
+	// });
+	var maxCharacters = 140;
+
+	$('#char-count').text(maxCharacters);
+
+	$('.tweet-compose').on('keyup keydown', function() {
+	    var count = $('#char-count');
+	    var characters = $(this).val().length;
+
+	    if (characters  > 129) {
+	        count.css('color', 'red');
+	    } else if (characters < 130) {
+	    		count.css('color', '#999');
+	    }
+
+	    if (characters > 140) {
+	    	$('button').prop('disabled', true);
+	    } else {
+	    	$('button').prop('disabled', false);
+	    }
+
+	    count.text(maxCharacters - characters);
 	});
 
-	$('body').on('keypress', '.tweet-compose', function() {
-		if (this.value.length <= 128) {
-			return true;
-		}
-		$('#char-count').css('color', 'red');
-	});
+	$('#tweet-submit').on('click', function() {
+		var newTweet = $('.first-tweet').clone();
+		newTweet.find('.fullname').text('John Doe');
+		newTweet.find('.avatar').prop('src', 'img/alagoon.jpg');
+		newTweet.find('.username').text('@kgreen');
+		var newText = $('.tweet-compose').val();
+		newTweet.find('.tweet-text').text(newText);
+		$('#stream').prepend(newTweet);
+	})
+
+
+
+
+
 });
