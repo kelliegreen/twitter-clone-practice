@@ -7,19 +7,7 @@ $(document).ready(function () {
 		$('#tweet-controls').show();
 	});
 
-	// $('#tweet-submit').on('click', function () {
-	// 	// $('.tweet-compose').css('height', '2.5em');
-	// 	// // $('#tweet-controls').css('visibility', 'hidden');
-	// 	var message = $('.tweet-compose').val();
-	// 	$('#stream').prepend(message);
-	// 	// $('.tweet').clone('#profile-summary').prepend('#stream');
-	// });
 
-
-	// $('.tweet-compose').on('keypress', function () {
-	// 	var messageText = $(this).val().length;
-	// 	var remainCount = $('#char-count') - messageText;
-	// });
 	var maxCharacters = 140;
 
 	$('#char-count').text(maxCharacters);
@@ -44,12 +32,18 @@ $(document).ready(function () {
 	});
 
 	$('#tweet-submit').on('click', function() {
-		var newTweet = $('.first-tweet').clone();
+		var firstTweet = $('.first-tweet');
+		var newTweet = firstTweet.clone();
+
+		firstTweet.removeClass('first-tweet');
+
 		newTweet.find('.fullname').text('John Doe');
 		newTweet.find('.avatar').prop('src', 'img/alagoon.jpg');
 		newTweet.find('.username').text('@kgreen');
 		var newText = $('.tweet-compose').val();
 		newTweet.find('.tweet-text').text(newText);
+
+		$('.tweet-compose').val("");
 		$('#stream').prepend(newTweet);
 	})
 
